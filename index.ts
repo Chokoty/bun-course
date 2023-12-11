@@ -14,8 +14,19 @@ const server = Bun.serve({
         if (url.pathname === "/contact") {
             return new Response("Contact page");
         }
+        if (url.pathname === "/feed") {
+            throw new Error("Not implemented");
+        }
+        if (url.pathname === "/greet") {
+            return new Response(Bun.file("greet.txt"));
+        }
 
         return new Response("Not found", { status: 404 });
+    },
+    error(error) {
+        return new Response(`<pre> ${error}\n ${error.stack}</pre>`, {
+            headers: { "content-type": "text/html" },
+        });
     },
     port: 3000,
 });
