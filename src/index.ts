@@ -1,6 +1,9 @@
 import { Elysia } from "elysia";
+import { plugin } from "./plugin";
 
+// Application
 const app = new Elysia()
+    .use(plugin)
     .get(
         "/",
         () => "Hello Bun dev, I am gonna build build RESTFUL API with Elysia "
@@ -49,6 +52,7 @@ const app = new Elysia()
         // );
         console.log(store.verson);
         console.log(getDate());
+        console.log(store["plugin-verson"]);
         return {
             tracks: [
                 {
