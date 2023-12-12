@@ -87,7 +87,18 @@ app.group("/v1", (app) =>
         .group("/products", (app) =>
             app
                 .post("/", () => "create product")
-                .get("/:id", () => "get products by id")
+                .get(
+                    "/:id",
+                    ({ params: { id } }) => {
+                        return id;
+                    },
+                    {
+                        params: t.Object({
+                            id: t.Numeric(),
+                        }),
+                    }
+                )
+
                 .put("/:id", () => "put products by id")
                 .delete("/:id", () => "delete products by id")
         )
