@@ -65,8 +65,30 @@ const app = new Elysia()
                 },
             ],
         };
-    })
-    .listen(3000);
+    });
+
+// user
+app.group("/user", (app) =>
+    app
+        .post("/sign-in", ({ body }) => body)
+        .post("/sign-up", () => "signup route")
+        .get("/profile", () => "profile route")
+        .get("/:id", () => "user id route")
+);
+
+app.group("/v1", (app) =>
+    app
+        .get("/", () => "v1")
+        .group("/products", (app) =>
+            app
+                .post("/", () => "create product")
+                .get("/:id", () => "get products by id")
+                .put("/:id", () => "put products by id")
+                .delete("/:id", () => "delete products by id")
+        )
+);
+
+app.listen(3000);
 
 console.log(
     `🦊 Elysia is running at ${app.server?.hostname}:${app.server?.port}`
