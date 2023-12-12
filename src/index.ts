@@ -1,5 +1,7 @@
-import { Elysia } from "elysia";
+import { Elysia, t } from "elysia";
 import { plugin } from "./plugin";
+import { signinDTO } from "./models";
+import { sign } from "crypto";
 
 // Application
 const app = new Elysia()
@@ -70,7 +72,10 @@ const app = new Elysia()
 // user
 app.group("/user", (app) =>
     app
-        .post("/sign-in", ({ body }) => body)
+        .post("/sign-in", ({ body }) => body, {
+            body: signinDTO,
+            response: signinDTO,
+        })
         .post("/sign-up", () => "signup route")
         .get("/profile", () => "profile route")
         .get("/:id", () => "user id route")
